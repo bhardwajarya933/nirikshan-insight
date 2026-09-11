@@ -73,8 +73,8 @@ function defaultReasons(score: number): RiskReason[] {
 }
 
 export const projects: Project[] = scores.map((riskScore, index) => {
-  const location = locations[index % locations.length];
-  const work = works[index % works.length];
+  const location = locations[index % locations.length] ?? locations[0];
+  const work = works[index % works.length] ?? works[0];
   const sanction = 28 + ((index * 17) % 132);
   const status = index % 5 === 0 ? "Completed" : index % 4 === 0 ? "Delayed" : index % 3 === 0 ? "In Progress" : "Sanctioned";
   return {
@@ -82,7 +82,7 @@ export const projects: Project[] = scores.map((riskScore, index) => {
     name: `${work[0]} – ${location[0]}`,
     district: location[0], state: location[1], category: work[1],
     sanction, expenditure: Math.round(sanction * (status === "Completed" ? 0.97 : 0.42 + (index % 5) * 0.1)),
-    contractor: contractors[index % contractors.length], status,
+    contractor: contractors[index % contractors.length] ?? contractors[0] ?? "Government Works Division", status,
     completionDate: `202${4 + (index % 3)}-${String((index % 12) + 1).padStart(2, "0")}-15`,
     lat: location[2] + (Math.floor(index / locations.length) * 0.08),
     lng: location[3] + (Math.floor(index / locations.length) * 0.08),

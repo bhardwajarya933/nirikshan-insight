@@ -73,7 +73,7 @@ function Index() {
   const desktop = useMediaQuery(theme.breakpoints.up("md"));
   const [mobileOpen, setMobileOpen] = useState(false);
   const [view, setView] = useState<View>("dashboard");
-  const [selected, setSelected] = useState<Project>(projects[0]);
+  const [selected, setSelected] = useState<Project>(() => projects[0] ?? priorityProjects[0] ?? ({ id: 0, name: "No project selected", district: "—", state: "—", category: "—", sanction: 0, expenditure: 0, contractor: "—", status: "—", completionDate: "—", lat: 0, lng: 0, riskScore: 0, riskBand: "Normal", reasons: [] }));
   const [dialogOpen, setDialogOpen] = useState(false);
   const navItems = useMemo(() => [
     ["dashboard", "Dashboard", <DashboardOutlinedIcon />], ["map", "Project Map", <MapOutlinedIcon />],
